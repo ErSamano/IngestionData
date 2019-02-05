@@ -1,0 +1,17 @@
+{
+  "IngestionInputEvents": {
+    "name": "smbDistCp",
+    "properties": {
+      "sambaShareServer": "fs-nw-boeing.com",
+      "sambaShareName": "External_Share_01",
+      "sambaShareDirectories": [
+        "ML Database Prototype\\Dr_properties\\Data",
+        "ML Database Prototype\\Run 09\\Data"
+      ]
+    },
+    "metadata": {
+      "dataFunctionType": "Wind Tunnel",
+      "dataClasificationType": ""
+    }
+  }
+}
