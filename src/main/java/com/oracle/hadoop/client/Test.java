@@ -45,8 +45,8 @@ public class Test {
 
     public static void main(String []args) {
 
-        /*..::How can I create a method to invoke this call to hdfs ::..*/
-        //BasicConfigurator.configure();
+        /*..::How can I create a method to invoke this call to hdfs::..*/
+        BasicConfigurator.configure();
         String uri = "hdfs://localhost:9000/user/vs485e/Lab01/data.json";
         Configuration conf = new Configuration();
         InputStream in = null;
@@ -54,7 +54,9 @@ public class Test {
         try {
             FileSystem fs = FileSystem.get(URI.create(uri), conf);
             in = fs.open(new Path(uri));
+            //CAT command
             IOUtils.copyBytes(in, System.out, 4096, false);
+            //End CAT command
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
