@@ -1,6 +1,8 @@
 package com.oracle.hadoop.client;
 
 import com.oracle.hadoop.bean.IngestionInputEvents;
+import com.oracle.hadoop.bean.Metadata;
+import com.oracle.hadoop.bean.Properties;
 import com.oracle.hadoop.util.JsonUtil;
 
 
@@ -27,8 +29,8 @@ public class Test {
 
         IngestionInputEvents call = new IngestionInputEvents();
         call.setName("smbDistCp2");
-        //How can I set the Metadata?
-//        call.setMetadata("");
+        call.getMetadata().setDataFunctionType("Wind Tunnel");
+
         //How can I set the Properties
         String jsonCall = JsonUtil.convertJavaToJson(call);
 

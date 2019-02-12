@@ -2,7 +2,7 @@
   "IngestionInputEvents": {
     "name": "smbDistCp",
     "properties": {
-      "sambaShareServer": "fs-nw-boeing.com",
+      "sambaShareServer": "fs-nw-oracle.com",
       "sambaShareName": "External_Share_01",
       "sambaShareDirectories": [
         "ML Database Prototype\\Dr_properties\\Data",
