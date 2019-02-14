@@ -5,8 +5,8 @@
       "sambaShareServer": "fs-nw-oracle.com",
       "sambaShareName": "External_Share_01",
       "sambaShareDirectories": [
-        "ML Database Prototype\\Dr_properties\\Data",
-        "ML Database Prototype\\Run 09\\Data"
+        {"ML Database Prototype\\Dr_properties\\Data":"Dr_properties\\Data"},
+        {"ML Database Prototype\\Run 09\\Data":"Run 09\\Data"}
       ]
     },
     "metadata": {

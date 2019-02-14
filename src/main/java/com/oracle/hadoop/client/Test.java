@@ -4,12 +4,9 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.oracle.hadoop.bean.IngestionInputEvents;
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.*;
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IOUtils;
-import org.apache.log4j.BasicConfigurator;
+import com.oracle.hadoop.util.HadoopUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,9 +15,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Iterator;
 import java.util.List;
 
-import static org.apache.hadoop.fs.FileSystem.get;
 
 
 
@@ -45,38 +42,25 @@ public class Test {
 
     public static void main(String []args) {
 
-        /*..::How can I create a method to invoke this call to hdfs::..*/
-        BasicConfigurator.configure();
-        String uri = "hdfs://localhost:9000/user/vs485e/Lab01/data.json";
-        Configuration conf = new Configuration();
-        InputStream in = null;
+        //HadoopUtil test = new HadoopUtil();
+        //test.CatFileFromHdfs("/user/oozie/");
+        //test.CatFileFromHdfs("/user/vs485e/Lab01/data.json");
+        //test.GetFilesFromHdfs("data.json", "/user/vs485e/Lab01/","/Users/ernestosamanom/IdeaProjects/IngestionData/src/main/java/com/oracle/hadoop/bean/");
+        //test.ListFilesFromHdfs("/user/vs485e/Lab01/");
 
         try {
-            FileSystem fs = FileSystem.get(URI.create(uri), conf);
-            in = fs.open(new Path(uri));
-            //CAT command
-            IOUtils.copyBytes(in, System.out, 4096, false);
-            //End CAT command
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            IOUtils.closeStream(in);
-        }
+            ObjectMapper mapper = new ObjectMapper();
+            File myFile = new File("/Users/ernestosamanom/IdeaProjects/IngestionData/src/main/java/com/oracle/hadoop/bean/inputData.json");
+            JsonNode node = mapper.readTree(myFile);
+            System.out.println(node.get("IngestionInputEvents").get("properties").get("sambaShareName").textValue());
 
 
-        /*
-        ..:: Testing Code to Parse JSON into Java Object ::..
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            IngestionInputEvents emp = objectMapper.readValue(new File("/Users/ernestosamanom/IdeaProjects/IngestionData/src/main/java/com/oracle/hadoop/bean/inputData.json"), IngestionInputEvents.class);
-
-            //System.out.println(emp.getAdditionalProperties());
-//            List properties = ((List)emp.getProperties("sambaShareServer"));
-//            System.out.println(emp.getName());
-            JSONObject jsonObj = new JSONObject(emp);
-
-            String first = jsonObj.getJSONObject("IngestionInputEvents").getString("Properties");
-            System.out.println(first);
+            Iterator<JsonNode> elements = node.get("IngestionInputEvents").get("properties").get("sambaShareDirectories").elements();
+            while (elements.hasNext()) {
+                System.out.println(elements.next().textValue());
+            }
+            ((ObjectNode) node.get("IngestionInputEvents").get("properties")).put("sambaShareName", "External_Share_02");
+            System.out.println(node.toString());
 
         } catch (JsonGenerationException e) {
             e.printStackTrace();
@@ -87,25 +71,6 @@ public class Test {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        */
 
-    /*
-    ..:: Working Code Parsing JSON data into Java Object ::..
-        IngestionInputEvents mycall = new IngestionInputEvents();
-        call.setName("smbDistCp2");
-        call.getMetadata().setDataFunctionType("Wind Tunnel");
-        //call.setProperties().setSambaShareServer("fs-pt-oracle.com");
-
-        //How can I set the Properties
-        String jsonCall = JsonUtil.convertJavaToJson(call);
-
-        System.out.println(jsonCall);
-
-        System.out.println("=======================================================================");
-
-        IngestionInputEvents call1 = JsonUtil.convertJsonToJava(jsonCall, IngestionInputEvents.class);
-        System.out.println(call1.getName()+" "+call1.getMetadata()+" "+call1.getProperties());
-
-    */
     }
 }
