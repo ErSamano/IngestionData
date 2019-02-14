@@ -5,20 +5,11 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.oracle.hadoop.bean.IngestionInputEvents;
-import com.oracle.hadoop.util.HadoopUtil;
 import org.json.JSONException;
-import org.json.JSONObject;
-
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
 import java.util.Iterator;
-import java.util.List;
-
-
 
 
 /*
@@ -36,7 +27,6 @@ import java.util.List;
  4.- Save it in HDFS in a propertly format (JSON format) in the outputFolder.
 
 */
-
 
 public class Test {
 

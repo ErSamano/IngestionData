@@ -13,6 +13,10 @@ import org.apache.log4j.BasicConfigurator;
 
 public class HadoopUtil {
 
+    /*
+    Needs to create a global variable to handle hdfs address
+     */
+
     public String CatFileFromHdfs(String path){
 
         String filePath="hdfs://localhost:9000"+path;
