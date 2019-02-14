@@ -29,7 +29,9 @@ public class Test {
 
         IngestionInputEvents call = new IngestionInputEvents();
         call.setName("smbDistCp2");
-        call.getMetadata().setDataFunctionType("Wind Tunnel");
+        Metadata meta = new Metadata();
+	meta.setDataFunctionType("Wind Tunnel");
+        call.setMetadata(meta);
 
         //How can I set the Properties
         String jsonCall = JsonUtil.convertJavaToJson(call);
