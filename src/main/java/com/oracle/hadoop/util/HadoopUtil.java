@@ -13,9 +13,8 @@ import org.apache.log4j.BasicConfigurator;
 
 public class HadoopUtil {
 
-    /*
-    Needs to create a global variable to handle hdfs address
-     */
+
+    //Needs to create a global variable to handle hdfs address
 
     public String CatFileFromHdfs(String path){
 
@@ -73,8 +72,6 @@ public class HadoopUtil {
     public String PutLocalFilesInHdfs(String localPathFile, String destinationPathOnHdfs){
         BasicConfigurator.configure();
 
-//        String fileLocalPath="/home/user/data.json";
-//        String destinationPath = "MyNewDir";
         String uri = "hdfs://localhost:9000/"+destinationPathOnHdfs;
         Configuration conf = new Configuration();
         try {
@@ -89,7 +86,6 @@ public class HadoopUtil {
 
     public String GetFilesFromHdfs(String nameFile, String sourcePath, String destinationPath){
         BasicConfigurator.configure();
-        //String destinationPath="/home/user/";
         String uri = "hdfs://localhost:9000/"+sourcePath+nameFile;
         Configuration conf = new Configuration();
         try {
@@ -104,8 +100,6 @@ public class HadoopUtil {
 
     public String RemoveFilesFromHdfs(String fileName, String pathFile){
         BasicConfigurator.configure();
-        //String fileName="someFile";
-        //String destinationPath = "MyNewDir/";
         String uri = "hdfs://localhost:9000/"+pathFile+fileName;
 
         Configuration conf = new Configuration();
