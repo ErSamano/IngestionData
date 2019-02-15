@@ -1,9 +1,27 @@
 package com.oracle.hadoop.client;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oracle.hadoop.bean.IngestionInputEvents;
-import com.oracle.hadoop.bean.Metadata;
-import com.oracle.hadoop.bean.Properties;
-import com.oracle.hadoop.util.JsonUtil;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.*;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IOUtils;
+import org.apache.log4j.BasicConfigurator;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.List;
+
+import static org.apache.hadoop.fs.FileSystem.get;
+
 
 
 /*
@@ -27,21 +45,37 @@ public class Test {
 
     public static void main(String []args) {
 
-        IngestionInputEvents call = new IngestionInputEvents();
+        /*..::How can I create a method to invoke this call to hdfs::..*/
+        BasicConfigurator.configure();
+        String uri = "hdfs://localhost:9000/user/vs485e/Lab01/data.json";
+        Configuration conf = new Configuration();
+        InputStream in = null;
+
+        try {
+            FileSystem fs = FileSystem.get(URI.create(uri), conf);
+            in = fs.open(new Path(uri));
+            //CAT command
+            IOUtils.copyBytes(in, System.out, 4096, false);
+            //End CAT command
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            IOUtils.closeStream(in);
+        }
+ 
+        IngestionInputEvents mycall = new IngestionInputEvents();
         call.setName("smbDistCp2");
-        Metadata meta = new Metadata();
-	meta.setDataFunctionType("Wind Tunnel");
-        call.setMetadata(meta);
+        call.getMetadata().setDataFunctionType("Wind Tunnel");
+        //call.setProperties().setSambaShareServer("fs-pt-oracle.com");
 
         //How can I set the Properties
         String jsonCall = JsonUtil.convertJavaToJson(call);
 
         System.out.println(jsonCall);
 
-        System.out.println("=============================================================================");
+        System.out.println("=======================================================================");
 
         IngestionInputEvents call1 = JsonUtil.convertJsonToJava(jsonCall, IngestionInputEvents.class);
         System.out.println(call1.getName()+" "+call1.getMetadata()+" "+call1.getProperties());
     }
-
 }
