@@ -62,35 +62,7 @@ public class Test {
         } finally {
             IOUtils.closeStream(in);
         }
-
-
-        /*
-        ..:: Testing Code to Parse JSON into Java Object ::..
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            IngestionInputEvents emp = objectMapper.readValue(new File("/Users/ernestosamanom/IdeaProjects/IngestionData/src/main/java/com/oracle/hadoop/bean/inputData.json"), IngestionInputEvents.class);
-
-            //System.out.println(emp.getAdditionalProperties());
-//            List properties = ((List)emp.getProperties("sambaShareServer"));
-//            System.out.println(emp.getName());
-            JSONObject jsonObj = new JSONObject(emp);
-
-            String first = jsonObj.getJSONObject("IngestionInputEvents").getString("Properties");
-            System.out.println(first);
-
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        */
-
-    /*
-    ..:: Working Code Parsing JSON data into Java Object ::..
+ 
         IngestionInputEvents mycall = new IngestionInputEvents();
         call.setName("smbDistCp2");
         call.getMetadata().setDataFunctionType("Wind Tunnel");
@@ -105,7 +77,5 @@ public class Test {
 
         IngestionInputEvents call1 = JsonUtil.convertJsonToJava(jsonCall, IngestionInputEvents.class);
         System.out.println(call1.getName()+" "+call1.getMetadata()+" "+call1.getProperties());
-
-    */
     }
 }
